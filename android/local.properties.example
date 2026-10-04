@@ -1,0 +1,4 @@
+# Local Development Properties
+# Place your OpenRouteService API key here
+# Do NOT commit this file with real keys to Git.
+OPENROUTESERVICE_API_KEY=your_openrouteservice_api_key_here

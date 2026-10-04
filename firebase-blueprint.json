@@ -1,0 +1,99 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "SafeRoad+ user profile and emergency medical configuration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "firebaseUid": { "type": "string" },
+        "role": { "type": "string", "enum": ["TRAVELER", "TRIP_LEADER", "TOURIST_POLICE", "HOSPITAL_TRIAGE", "EMERGENCY_DISPATCH", "ADMIN"] },
+        "medicalConditions": { "type": "string" },
+        "bloodGroup": { "type": "string" },
+        "allergies": { "type": "string" },
+        "fcmToken": { "type": "string" },
+        "fcmTokenUpdatedAt": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "role", "createdAt"]
+    },
+    "Trip": {
+      "title": "Trip",
+      "description": "SafeRoad+ group expedition itinerary and geofence configuration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "destination": { "type": "string" },
+        "leaderUserId": { "type": "string" },
+        "leaderName": { "type": "string" },
+        "status": { "type": "string", "enum": ["ACTIVE", "COMPLETED", "ARCHIVED", "CANCELLED"] },
+        "inviteCode": { "type": "string" },
+        "targetMembersCount": { "type": "number" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "destination", "leaderUserId", "status", "inviteCode", "createdAt"]
+    },
+    "SOSAlert": {
+      "title": "SOSAlert",
+      "description": "Emergency SOS distress beacon record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "tripId": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING_CONFIRMATION", "ACTIVE", "ACKNOWLEDGED", "ESCALATED", "RESOLVED", "CANCELLED"] },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "batteryLevel": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "userName", "status", "createdAt"]
+    },
+    "TripReview": {
+      "title": "TripReview",
+      "description": "Post-completion traveler trip review and safety experience feedback",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tripId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "destination": { "type": "string" },
+        "overallRating": { "type": "number" },
+        "safetyRating": { "type": "number" },
+        "routeRating": { "type": "string" },
+        "routeFeltSafe": { "type": "string" },
+        "destinationRating": { "type": "number" },
+        "safetyIssueType": { "type": "string" },
+        "suggestions": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "tripId", "userId", "destination", "overallRating", "safetyRating", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile records with emergency information"
+    },
+    "/trips/{tripId}": {
+      "schema": "Trip",
+      "description": "Expedition trips and safe bubble parameters"
+    },
+    "/sos_alerts/{sosId}": {
+      "schema": "SOSAlert",
+      "description": "Live and historical SOS distress records"
+    },
+    "/trips/{tripId}/reviews/{reviewId}": {
+      "schema": "TripReview",
+      "description": "Traveler experience feedback collected after trip completion"
+    }
+  }
+}

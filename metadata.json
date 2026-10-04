@@ -1,0 +1,6 @@
+{
+  "name": "SafeRoad+",
+  "description": "AI-powered tourist safety and smart emergency response platform.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
